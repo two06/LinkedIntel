@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-LinkedIntel - LinkedIn Profile Intelligence Extraction for Burp Suite
-Author: Red Team Operator
+LinkedIntel - LinkedIn Profile Extraction The Lazy Way
+Author: @two06
 Description: Automatically extracts and analyzes LinkedIn profile data from HTTP responses
 """
 

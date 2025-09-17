@@ -454,25 +454,24 @@ Author: @two06
         """Save profiles to CSV file - Jython compatible"""
         try:
             # Open file for writing
-            with open(file_path, 'w') as csvfile:
-                # Write header manually
-                csvfile.write("Name,Position,Location,Profile URL,Badge,Summary,Timestamp\n")
-                
+            with open(file_path, 'wb') as csvfile:
+                writer = csv.writer(csvfile)
+
+                # Write header
+                writer.writerow(["Name", "Position", "Location", "Profile URL", "Badge", "Summary", "Timestamp"])
+
                 # Write each profile
                 for profile in self.profiles:
-                    # Escape CSV fields manually (replace quotes with double quotes)
-                    name = profile.get('name', '').replace('"', '""')
-                    position = profile.get('position', '').replace('"', '""')
-                    location = profile.get('location', '').replace('"', '""')
-                    profile_url = profile.get('profile_url', '').replace('"', '""')
-                    badge = profile.get('badge', '').replace('"', '""')
-                    summary = profile.get('summary', '').replace('"', '""')
-                    timestamp = profile.get('timestamp', '').replace('"', '""')
-                    
-                    # Write CSV line with proper quoting
-                    csvfile.write('"{0}","{1}","{2}","{3}","{4}","{5}","{6}"\n'.format(
-                        name, position, location, profile_url, badge, summary, timestamp
-                    ))
+                    row = [
+                        profile.get('name', ''),
+                        profile.get('position', ''),
+                        profile.get('location', ''),
+                        profile.get('profile_url', ''),
+                        profile.get('badge', ''),
+                        profile.get('summary', ''),
+                        profile.get('timestamp', '')
+                    ]
+                    writer.writerow([s.encode('utf-8') for s in row])
                     
             print("[LinkedIntel] Exported {} profiles to {}".format(len(self.profiles), file_path))
             
